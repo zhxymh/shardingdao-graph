@@ -1,0 +1,28 @@
+specVersion: 0.0.2
+description: ShardingDAO for Ethereum
+repository: https://github.com/zhxymh/sharding-dao-subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: ShardingDAO
+    network: {{network}}
+    source:
+      address: '{{address}}'
+      abi: CrossChain
+      startBlock: 12110000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - CrossChainTransfer
+      abis:
+        - name: CrossChain
+          file: ./abis/CrossChain.json
+        - name: CrossChainDelegator
+          file: ./abis/CrossChainDelegator.json
+      eventHandlers:
+        - event: CrossChainTransfer(indexed address,uint256,indexed address,address,uint8,uint256)
+          handler: handleCrossChainTransfer
+      file: ./src/mapping.ts

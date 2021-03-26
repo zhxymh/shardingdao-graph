@@ -1,0 +1,12 @@
+type CrossChainTransferEvent @entity {
+  id: ID!
+  from: Bytes!
+  to: Bytes!
+  token: Bytes!
+  amount: BigInt!
+  fee: BigInt!
+  targetChain: Int!
+  transactionId: Bytes!
+  blockNumber: Int!
+  blockHash: Bytes!
+}
